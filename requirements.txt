@@ -3,6 +3,7 @@ uvicorn[standard]
 python-dotenv
 
 # Use the specific versions from your notebook for reproducibility
-crewai==0.28.8
-crewai_tools==0.1.6
-langchain_community==0.0.29
+crewai
+crewai_tools
+langchain_community
+markdown
