@@ -7,6 +7,9 @@ from crewai_tools import ScrapeWebsiteTool, SerperDevTool
 warnings.filterwarnings('ignore')
 
 def create_financial_crew(stock_selection, date):
+
+    verbose = False
+    allow_delegation = True
     """
     Creates and configures the financial analysis crew.
     """
@@ -39,8 +42,8 @@ def create_financial_crew(stock_selection, date):
         role="Financial Analyst",
         goal="Analyze the most valuable ratios and give a score for the company's financial health.",
         backstory="As a value investing specialist, you analyze financial ratios, income statements, and debt over the last 10 years to provide a clear financial health score. Your data-driven insights are the cornerstone of informed investment decisions.",
-        verbose=True,
-        allow_delegation=True,
+        verbose=verbose,
+        allow_delegation=allow_delegation,
         tools=[scrape_tool, search_tool],
         llm=llm
     )
@@ -49,8 +52,8 @@ def create_financial_crew(stock_selection, date):
         role="Intrinsic Value Calculator",
         goal="Calculate the intrinsic value for a given stock based on financial analysis.",
         backstory="You are an expert in valuation models. Using the data provided by the Financial Analyst, you calculate the intrinsic value of a stock to determine if it is under or overvalued.",
-        verbose=True,
-        allow_delegation=True,
+        verbose=verbose,
+        allow_delegation=allow_delegation,
         tools=[scrape_tool, search_tool],
         llm=llm
     )
@@ -85,7 +88,7 @@ def create_financial_crew(stock_selection, date):
         tasks=[finantial_analyst_task, intrinsic_value_development_task],
         manager_llm=llm,
         process=Process.hierarchical,
-        verbose=True
+        verbose=verbose
     )
 
     return financial_crew
